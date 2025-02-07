@@ -19,6 +19,8 @@ const Register = () => {
     password: "",
     role: "",
     profession: "",
+    age: 0,
+    gender: "",
   });
   const [professions, setProfessions] = useState([]);
 
@@ -28,7 +30,12 @@ const Register = () => {
     if (type === "file") {
       setFormData({
         ...formData,
-        [name]: files[0], // Store the file
+        [name]: files[0],
+      });
+    } else if (name === "age") {
+      setFormData({
+        ...formData,
+        [name]: Number(value), // Ensure age is stored as a number
       });
     } else {
       setFormData({
@@ -47,15 +54,12 @@ const Register = () => {
     formDataToSend.append("password", formData.password);
     formDataToSend.append("role", formData.role);
     formDataToSend.append("profession", formData.profession);
-    formDataToSend.append("profilePicture", formData.profilePicture); // Append file
-
-    if (!formData.profession) {
-      alert("Please select a profession");
-      return;
-    }
+    formDataToSend.append("profilePicture", formData.profilePicture);
+    formDataToSend.append("age", formData.age); // Add age
+    formDataToSend.append("gender", formData.gender); // Add gender
 
     try {
-      await commonServices.registerUser(formDataToSend); // Ensure backend expects FormData
+      await commonServices.registerUser(formDataToSend);
       setFormData({
         username: "",
         email: "",
@@ -63,6 +67,8 @@ const Register = () => {
         role: "",
         profession: "",
         profilePicture: null,
+        age: 0,
+        gender: "",
       });
       navigate("/");
     } catch (error) {
@@ -160,10 +166,29 @@ const Register = () => {
                     <FaUser className="text-black me-2" /> Role
                   </Form.Label>
                   <Form.Select onChange={handleChange} name="role">
+                    <option value="">Choose your role</option>
                     <option value="artist">Artist</option>
                     <option value="filmmaker">Filmmaker</option>
                   </Form.Select>
                 </Form.Group>
+                <Form.Group>
+                  <Form.Label>Gender</Form.Label>
+                  <Form.Select name="gender" onChange={handleChange}>
+                    <option value="">Choose Gender</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                  </Form.Select>
+                </Form.Group>
+              </Col>
+            </Row>
+            <Row>
+              <Col xs={12}>
+                <Form.Label>Age</Form.Label>
+                <Form.Control
+                  type="number"
+                  name="age"
+                  onChange={handleChange}
+                />
               </Col>
             </Row>
             <Row className="mb-3">
