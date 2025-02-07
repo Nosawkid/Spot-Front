@@ -51,6 +51,9 @@ const Applicants = () => {
   return (
     <Container className="mt-4">
       <h2 className="mb-4">Applicants</h2>
+      <Button as={Link} to={"/filmmaker/recommendations/" + id}>
+        View Recommendations{" "}
+      </Button>
       {loading ? (
         <div className="text-center">
           <Spinner animation="border" />

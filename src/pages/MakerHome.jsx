@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { Container, Card, Row, Col, Image } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import SearchBar from "../components/SearchBar";
 
 const MakerHome = () => {
   const user = useSelector((state) => state.user);
@@ -31,6 +32,7 @@ const MakerHome = () => {
       {/* Profile Section */}
       <Card className="mb-4 p-3">
         <Row className="align-items-center">
+          <SearchBar />
           <Col md={3} className="text-center">
             <Image
               src={userData.profilePicture || "/default-profile.png"}

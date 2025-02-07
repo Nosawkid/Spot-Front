@@ -18,6 +18,8 @@ import MakerChat from "./pages/MakerChat";
 import UserProfile from "./pages/UserProfile";
 import MyProject from "./pages/MyProject";
 import ArtistProfile from "./pages/ArtistProfile";
+import SearchRes from "./pages/SearchRes";
+import UserRecommendations from "./pages/UserRecommendations";
 
 const App = () => {
   const user = useSelector((state) => state.user);
@@ -39,8 +41,13 @@ const App = () => {
           <Route path="view" element={<ViewProject />} />
           <Route path="add-experience" element={<MakerAddExp />} />
           <Route path="applications/:id" element={<Applicants />} />
+          <Route path="search/:title" element={<SearchRes />} />
           <Route path="chat/:id" element={<MakerChat />} />
           <Route path="user/:id" element={<UserProfile />} />
+          <Route
+            path="recommendations/:projectId"
+            element={<UserRecommendations />}
+          />
         </Route>
         <Route path="/artist" element={<ArtistProtectedRoute user={user} />}>
           <Route path="home" element={<ArtistHome />} />
